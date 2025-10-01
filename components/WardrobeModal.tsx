@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import type { WardrobeItem } from '../types';
 import { UploadCloudIcon, CheckCircleIcon } from './icons';
-import { urlToFile } from '../lib/utils';
+import { urlToFileFetch } from '../lib/utils';
 
 interface WardrobePanelProps {
   onGarmentSelect: (garmentFile: File, garmentInfo: WardrobeItem) => void;
@@ -23,7 +23,7 @@ const WardrobePanel: React.FC<WardrobePanelProps> = ({ onGarmentSelect, activeGa
         try {
             // If the item was from an upload, its URL is a blob URL. We need to fetch it to create a file.
             // If it was a default item, it's a regular URL. This handles both.
-            const file = await urlToFile(item.url, item.name);
+            const file = await urlToFileFetch(item.url, item.name);
             onGarmentSelect(file, item);
         } catch (err) {
             const detailedError = `Failed to load wardrobe item. This is often a CORS issue. Check the developer console for details.`;

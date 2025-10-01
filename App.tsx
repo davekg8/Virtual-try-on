@@ -15,7 +15,7 @@ import { OutfitLayer, WardrobeItem, SavedOutfit } from './types';
 import { ChevronDownIcon, ChevronUpIcon, WandIcon, GalleryHorizontalIcon } from './components/icons';
 import { defaultWardrobe } from './wardrobe';
 import Footer from './components/Footer';
-import { getFriendlyErrorMessage, urlToFile } from './lib/utils';
+import { getFriendlyErrorMessage, urlToFileFetch } from './lib/utils';
 import Spinner from './components/Spinner';
 
 const POSE_INSTRUCTIONS = [
@@ -280,7 +280,7 @@ const App: React.FC = () => {
     setLoadingMessage(`Regenerating ${garmentInfo.name}...`);
 
     try {
-        const garmentFile = await urlToFile(garmentInfo.url, garmentInfo.name);
+        const garmentFile = await urlToFileFetch(garmentInfo.url, garmentInfo.name);
         const newImageUrl = await generateVirtualTryOnImage(baseModelImage, garmentFile);
         
         const currentPoseInstruction = POSE_INSTRUCTIONS[currentPoseIndex];

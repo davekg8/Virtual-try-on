@@ -66,10 +66,41 @@ export const urlToFile = (url: string, filename: string): Promise<File> => {
             }, 'image/png');
         };
 
-        image.onerror = (error) => {
-            reject(new Error(`Could not load image from URL for canvas conversion. Error: ${error}`));
+        image.onerror = () => {
+            reject(new Error(
+                `Could not load image from URL: ${url}. This is likely a Cross-Origin (CORS) issue. ` +
+                `The server hosting the image must respond with an 'Access-Control-Allow-Origin' header.`
+            ));
         };
 
         image.src = url;
     });
+};
+
+/**
+ * Convertit une URL distante en objet File en utilisant l'API Fetch.
+ * C'est la méthode recommandée pour éviter les problèmes CORS liés à Canvas/Image.
+ * @param {string} url - L'URL de la ressource.
+ * @param {string} filename - Le nom de fichier.
+ * @returns {Promise<File>} L'objet File.
+ */
+export const urlToFileFetch = async (url, filename) => {
+    // 1. Récupération de la ressource
+    const response = await fetch(url);
+    
+    // Vérifier si la requête a réussi
+    if (!response.ok) {
+        throw new Error(`Failed to fetch the resource: ${response.statusText}`);
+    }
+
+    // 2. Conversion en Blob
+    const blob = await response.blob();
+    
+    // 3. Extraction du MIME type (du header Content-Type)
+    const mimeType = blob.type; 
+
+    // 4. Création de l'objet File
+    const file = new File([blob], filename, { type: mimeType });
+
+    return file;
 };

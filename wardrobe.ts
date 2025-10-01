@@ -9,12 +9,12 @@ import { WardrobeItem } from './types';
 export const defaultWardrobe: WardrobeItem[] = [
   {
     id: 'gemini-sweat',
-    name: 'Gemini Sweat',
-    url: 'https://raw.githubusercontent.com/ammaarreshi/app-images/refs/heads/main/gemini-sweat-2.png',
+    name: 'Dave\'s crush',
+    url: 'https://raw.githubusercontent.com/davekg8/Virtual-try-on/refs/heads/main/image/Generated%20Image%20September%2025%2C%202025%20-%2011_39AM.png',
   },
   {
     id: 'gemini-tee',
-    name: 'Gemini Tee',
-    url: 'https://raw.githubusercontent.com/ammaarreshi/app-images/refs/heads/main/Gemini-tee.png',
+    name: 'Love you bibou',
+    url: 'https://raw.githubusercontent.com/davekg8/Virtual-try-on/refs/heads/main/image/Generated%20Image%20September%2025%2C%202025%20-%2011_45AM.png',
   }
 ];
